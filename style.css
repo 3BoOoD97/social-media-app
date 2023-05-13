@@ -27,7 +27,7 @@ body {
 }
 
 .loginText h1 {
-  margin-top: 30px;
+  margin-top: 20px;
   color: white;
   font-size: 80px;
   font-weight: 500;
@@ -39,7 +39,7 @@ body {
   color: white;
   font-size: 20px;
   font-family: Roboto Slab;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .loginText input {

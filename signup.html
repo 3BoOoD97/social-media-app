@@ -19,18 +19,33 @@
         <div class="loginLogo"></div>
         <div class="loginText">
           <h1>Sign up</h1>
+          <div
+            class="alert alert-success"
+            role="alert"
+            id="successMsg"
+            style="display: none"
+          >
+            Your account has been created and verified you can now
+            <a href="login.html" class="alert-link">login</a>
+          </div>
           <p>Name</p>
-          <input type="text" placeholder="Enter your name" />
+          <input type="text" placeholder="Enter your name" id="userName" />
           <p>EMAIL</p>
-          <input type="text" placeholder="Enter your email" />
+          <input type="text" placeholder="Enter your email" id="email" />
           <p>PASSWORD</p>
-          <input type="password" placeholder="Enter your password" />
+          <input
+            type="password"
+            placeholder="Enter your password"
+            id="password"
+          />
         </div>
-        <a href="login.html">
-          <button type="button" class="btn btn-secondary btn-lg mt-lg-5">
-            Sign up
-          </button>
-        </a>
+        <button
+          type="button"
+          class="btn btn-secondary btn-lg mt-lg-5"
+          id="signupBtn"
+        >
+          Sign up
+        </button>
       </div>
     </form>
   </body>
@@ -40,4 +55,5 @@
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"
   ></script>
+  <script src="signup.js"></script>
 </html>
