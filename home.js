@@ -20,9 +20,15 @@ async function getPosts() {
     const response = await axios.get('https://tarmeezacademy.com/api/v1/posts?limit=5');
     const posts = response.data.data;
     for (post of posts){
+      console.log(post);
+      postTitle='';
       //Give the user a default profile image if they don't have one
       if(!Object.keys(post.author.profile_image).length){
         post.author.profile_image=  'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
+    }
+    //Give the post a title to display it in the card if it has a value only
+    if (post.title != null){
+      postTitle = post.title;
     }
       postsCard.innerHTML += `
      <div class="card shadow" style="width: 61rem; margin-top: 30px">
@@ -51,7 +57,7 @@ async function getPosts() {
         />
         <h6 style="color: rgb(182, 164, 164)" class="mt-1">${post.created_at}</h6>
         <div class="card-body">
-          <h5 class="card-title">${post.title}</h5>
+          <h5 class="card-title">${postTitle}</h5>
           <p class="card-text">
             ${post.body}
           </p>
