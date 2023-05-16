@@ -39,8 +39,10 @@ async function login(){
         const user = response.data;
         console.log(user);
         console.log(user.token);
+        localStorage.setItem("token", user.token);
+        localStorage.setItem("user", JSON.stringify(user.user));
         window.location.href = 'index.html';
-
+        
        
     } catch (error) {
         console.log(error);

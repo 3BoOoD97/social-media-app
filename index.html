@@ -65,19 +65,40 @@
                 <a class="nav-link" href="#">Profile</a>
               </li>
             </ul>
+
+            <!--Logged in user-->
             <div class="d-flex w-100 justify-content-end">
               <a href="login.html">
-                <button type="button" class="btn btn-success mx-2">
+                <button
+                  type="button"
+                  class="btn btn-success mx-2"
+                  id="loginBtn"
+                >
                   Login
                 </button>
               </a>
               <a href="signup.html">
-                <button type="button" class="btn btn-secondary">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="registerBtn"
+                >
                   Register
                 </button>
               </a>
             </div>
           </div>
+          <!--NON-Logged in user-->
+          <a href="login.html">
+            <button
+              type="button"
+              class="btn btn-danger mx-2"
+              id="logoutBtn"
+              onclick="logout()"
+            >
+              Logout
+            </button>
+          </a>
         </div>
       </nav>
 

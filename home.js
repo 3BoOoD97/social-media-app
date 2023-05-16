@@ -1,5 +1,7 @@
 let postsCard = document.getElementById('posts');
-
+let loginBtn= document.getElementById("loginBtn");
+let registerBtn= document.getElementById("registerBtn");
+let logoutBtn= document.getElementById("logoutBtn");
 // Sticky Navbar
 function stickynavbar() {
 const navbar = document.getElementById("navbar")
@@ -20,7 +22,7 @@ async function getPosts() {
     const response = await axios.get('https://tarmeezacademy.com/api/v1/posts?limit=5');
     const posts = response.data.data;
     for (post of posts){
-      console.log(post);
+      //console.log(post);
       postTitle='';
       //Give the user a default profile image if they don't have one
       if(!Object.keys(post.author.profile_image).length){
@@ -76,4 +78,30 @@ async function getPosts() {
   }
 }
 
+
+function setupUI(){
+  const token= localStorage.getItem("token");
+  const user= JSON.parse(localStorage.getItem("user"));
+  //If the user is logged in, hide the login and register buttons
+  if(token){
+   console.log(user);
+    loginBtn.style.display="none";
+    registerBtn.style.display="none";
+  }
+  //If the user is not logged in, hide the logout button
+  else{
+    logoutBtn.style.display="none";
+  }
+
+}
+
+function logout(){
+  window.location.href = 'index.html';
+
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+}
+
+
+setupUI();
 getPosts();
