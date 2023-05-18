@@ -15,8 +15,8 @@ function validate(){
     if(username.value.trim()=="" || password.value.trim()==""){
         alert("Fields cannot be empty");
         return false;
-    } else if(password.value.trim().length<8){
-        alert("Password must be at least 8 characters");
+    } else if(password.value.trim().length<3){
+        alert("Password must be at least 4 characters");
         return false;
     }
     else if(username.value.trim().length<3){

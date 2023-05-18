@@ -13,6 +13,7 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <form action="">
@@ -29,10 +30,18 @@
             Your account has been created and verified you can now
             <a href="login.html" class="alert-link">login</a>
           </div>
+
+          <div
+            class="alert alert-danger"
+            role="alert"
+            id="errorMsg"
+            style="display: none"
+          ></div>
+
           <p>Name</p>
-          <input type="text" placeholder="Enter your name" id="userName" />
-          <p>EMAIL</p>
-          <input type="text" placeholder="Enter your email" id="email" />
+          <input type="text" placeholder="Enter your name" id="name" />
+          <p>Username</p>
+          <input type="text" placeholder="Enter your email" id="username" />
           <p>PASSWORD</p>
           <input
             type="password"
