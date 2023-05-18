@@ -3,6 +3,7 @@ let loginBtn= document.getElementById("loginBtn");
 let registerBtn= document.getElementById("registerBtn");
 let logoutBtn= document.getElementById("logoutBtn");
 // Sticky Navbar
+
 function stickynavbar() {
 const navbar = document.getElementById("navbar")
 let top = navbar.offsetTop;
@@ -22,7 +23,7 @@ async function getPosts() {
     const response = await axios.get('https://tarmeezacademy.com/api/v1/posts?limit=5');
     const posts = response.data.data;
     for (post of posts){
-      //console.log(post);
+     console.log(post);
       postTitle='';
       //Give the user a default profile image if they don't have one
       if(!Object.keys(post.author.profile_image).length){

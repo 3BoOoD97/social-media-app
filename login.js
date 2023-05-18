@@ -50,6 +50,17 @@ async function login(){
     }
 }
 
+async function getAllUsers(){
+    let counter = 0;
+    const url = baseURL+"/users"; 
+    const response = await axios.get(url);
+    const users = response.data.data;
+    for (user of users){
+        counter++;
+    }
+    console.log(counter);
+}
+getAllUsers();
 
 //ali97
 //15001500a
