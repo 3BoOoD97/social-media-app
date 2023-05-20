@@ -2,8 +2,11 @@ let postsCard = document.getElementById('posts');
 let loginBtn= document.getElementById("loginBtn");
 let registerBtn= document.getElementById("registerBtn");
 let logoutBtn= document.getElementById("logoutBtn");
+let userIcon = document.getElementById("userIcon");
+let userIconImg = document.getElementById("userIconImg");
+let addIcon = document.getElementById("addIcon");
+let userName = document.getElementById("userName");
 // Sticky Navbar
-
 function stickynavbar() {
 const navbar = document.getElementById("navbar")
 let top = navbar.offsetTop;
@@ -88,10 +91,23 @@ function setupUI(){
    console.log(user);
     loginBtn.style.display="none";
     registerBtn.style.display="none";
+    userIcon.style.display="block";
+    userIconImg.src=user.profile_image;
+    addIcon.style.display="block";
+    userName.innerHTML=user.name;
+
+    if(!Object.keys(user.profile_image).length){
+      user.profile_image=
+      document.getElementById("userIconImg").src =  'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
+    }
   }
   //If the user is not logged in, hide the logout button
   else{
     logoutBtn.style.display="none";
+    userIcon.style.display="none";
+    addIcon.style.display="none";
+
+
   }
 
 }

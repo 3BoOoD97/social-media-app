@@ -2,7 +2,7 @@ var c = document.getElementById("c");
 var ctx = c.getContext("2d");
 var cH;
 var cW;
-var bgColor = "#FF6138";
+var bgColor = "#282741";
 var animations = [];
 var circles = [];
 c.style.position = "fixed";
@@ -13,7 +13,7 @@ c.style.pointerEvents = "none";
 
 var colorPicker = (function() {
  
-  var colors = ["#FF6138", "#FFBE53", "#2980B9", "#282741"];
+  var colors = ["#282741","#845EC2", "#D65DB1","#FF9671","#FFC75F" ];
   var index = 0;
   function next() {
     index = index++ < colors.length-1 ? index : 0;
