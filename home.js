@@ -6,6 +6,12 @@ let userIcon = document.getElementById("userIcon");
 let userIconImg = document.getElementById("userIconImg");
 let addIcon = document.getElementById("addIcon");
 let userName = document.getElementById("userName");
+let postTitleInput = document.getElementById("postTitle");
+let postBodyInput = document.getElementById("createPostBody");
+let postImgInput = document.getElementById("createPostImg");
+let createBtn = document.getElementById("createBtn");
+const baseURL = "https://tarmeezacademy.com/api/v1";
+
 // Sticky Navbar
 function stickynavbar() {
 const navbar = document.getElementById("navbar")
@@ -119,6 +125,40 @@ function logout(){
   localStorage.removeItem("user");
 }
 
+async function createNewPost(){
+  console.log(postTitleInput.value);
 
+  try{
+    let formData = new FormData();
+    formData.append("body", postBodyInput.value);
+    formData.append("title", postTitleInput.value);
+    formData.append("image", postImgInput.files[0]);
+
+    console.log(postBodyInput.value);
+    console.log(postTitleInput.value);
+    const url =`${baseURL}/posts`;
+    const token = localStorage.getItem("token");
+    const headers = {
+      "Content-Type": "multipart/form-data",
+      "authorization": `Bearer ${token}`
+    }
+    console.log(token);
+
+    const response = await axios.post(url,formData,{ headers: headers });
+    console.log(response);
+
+
+
+  
+  
+  
+    
+   
+} catch (error) {
+    console.log(error);
+  
+}
+
+}
 setupUI();
 getPosts();

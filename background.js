@@ -46,7 +46,6 @@ function addClickListeners() {
 
 function handleEvent(e) {
     if (e.touches) { 
-      e.preventDefault();
       e = e.touches[0];
     }
     var currentColor = colorPicker.current();
