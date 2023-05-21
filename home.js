@@ -10,8 +10,10 @@ let postTitleInput = document.getElementById("postTitle");
 let postBodyInput = document.getElementById("createPostBody");
 let postImgInput = document.getElementById("createPostImg");
 let createBtn = document.getElementById("createBtn");
-const baseURL = "https://tarmeezacademy.com/api/v1";
+let bottomOfPage= false;
+let pageIndex = 1;
 
+const baseURL = "https://tarmeezacademy.com/api/v1";
 // Sticky Navbar
 function stickynavbar() {
 const navbar = document.getElementById("navbar")
@@ -26,11 +28,22 @@ let top = navbar.offsetTop;
 
 }
 
+// Check if the user is at the bottom of the page
+window.onscroll = function bottom(ev) {
+  if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+      bottomOfPage = true;
+      pageIndex++;
+      getPosts(pageIndex);
+  }
+  else {
+      bottomOfPage = false;
+  }
+};
 
 // Get the posts as soon as the page loads
-async function getPosts() {
+async function getPosts( pageIndex) {
   try {
-    const response = await axios.get('https://tarmeezacademy.com/api/v1/posts?limit=5');
+    const response = await axios.get('https://tarmeezacademy.com/api/v1/posts?limit=2&page='+pageIndex);
     const posts = response.data.data;
     for (post of posts){
      console.log(post);
@@ -173,8 +186,12 @@ async function createNewPost(){
 } catch (error) {
     console.log(error.response.data.message);
     showErrorMsg(error.response.data.message)
+    
 }
 }
+
+
+
 
 setupUI();
 getPosts();
