@@ -2,6 +2,7 @@ let UName= document.getElementById("username");
 let name= document.getElementById("name");
 let password= document.getElementById("password");
 let signupBtn = document.getElementById("signupBtn");
+let userImg = document.getElementById("userImg");
 const baseURL = "https://tarmeezacademy.com/api/v1";
 
 
@@ -57,15 +58,25 @@ function hideErrorMsg(){
 
 async function register(){
     try{
+        let formData = new FormData();
+        formData.append("username",UName.value);
+        formData.append("password", password.value);
+        formData.append("image", userImg.files[0]);
+        formData.append("name", name.value);
         
+        /*
         const response = await axios.post(`${baseURL}/register`, {
             username: UName.value,
             password: password.value,
+            Image: userImg.files[0],
             name: name.value
         });
+        */
+
+        const url =`${baseURL}/register`;
+        const response = await axios.post(url,formData);
         const user = response.data;
         console.log(user);
-        console.log(user.token);
         localStorage.setItem("token", user.token);
         localStorage.setItem("user", JSON.stringify(user.user));
         //window.location.href = 'login.html';

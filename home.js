@@ -27,6 +27,7 @@ let top = navbar.offsetTop;
 }
 
 
+// Get the posts as soon as the page loads
 async function getPosts() {
   try {
     const response = await axios.get('https://tarmeezacademy.com/api/v1/posts?limit=5');
@@ -88,7 +89,7 @@ async function getPosts() {
   }
 }
 
-
+// Setup the UI depending on if the user is logged in or not
 function setupUI(){
   const token= localStorage.getItem("token");
   const user= JSON.parse(localStorage.getItem("user"));
@@ -107,35 +108,51 @@ function setupUI(){
       document.getElementById("userIconImg").src =  'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
     }
   }
+
   //If the user is not logged in, hide the logout button
   else{
     logoutBtn.style.display="none";
     userIcon.style.display="none";
     addIcon.style.display="none";
-
-
   }
-
 }
 
+// Log the user out
 function logout(){
   window.location.href = 'index.html';
-
   localStorage.removeItem("token");
   localStorage.removeItem("user");
 }
 
-async function createNewPost(){
-  console.log(postTitleInput.value);
+// Show the success message
+function showSuccessMsg(){
+  document.getElementById("successMsg").style.display = "block";
+ // const myTimeout = setTimeout(hideMsg, 9000);
+}
 
+// Show the error message
+function showErrorMsg(errorMsg){
+  document.getElementById("errorMsg").style.display = "block";
+  document.getElementById("errorMsg").innerHTML = errorMsg;
+
+}
+
+//hide the message
+function hideMsg(){
+  document.getElementById("successMsg").style.display = "none";
+  document.getElementById("errorMsg").style.display = "none";
+}
+
+// Create a new post
+async function createNewPost(){
+
+  hideMsg();
   try{
     let formData = new FormData();
     formData.append("body", postBodyInput.value);
     formData.append("title", postTitleInput.value);
     formData.append("image", postImgInput.files[0]);
 
-    console.log(postBodyInput.value);
-    console.log(postTitleInput.value);
     const url =`${baseURL}/posts`;
     const token = localStorage.getItem("token");
     const headers = {
@@ -146,19 +163,18 @@ async function createNewPost(){
 
     const response = await axios.post(url,formData,{ headers: headers });
     console.log(response);
-
-
-
-  
-  
-  
     
-   
+    console.log("response");
+    showSuccessMsg();
+    setTimeout(function () {
+      window.location.href = 'index.html';
+      }, 3000)
+
 } catch (error) {
-    console.log(error);
-  
+    console.log(error.response.data.message);
+    showErrorMsg(error.response.data.message)
+}
 }
 
-}
 setupUI();
 getPosts();

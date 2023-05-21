@@ -70,7 +70,7 @@ body {
   text-align: center;
   z-index: 2;
   position: relative;
-  margin-left: -610px;
+  margin-left: -520px;
   margin-top: 20px;
 }
 
@@ -150,7 +150,7 @@ body {
 
 .userName {
   text-transform: uppercase;
-  width: 50px;
+  width: 120px;
   font-size: 20px;
   font-family: Roboto Slab;
 }
