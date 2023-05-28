@@ -64,6 +64,7 @@ async function getPosts(pageIndex) {
         postTitle = post.title;
       }
 
+      // Display the posts
       postsCard.innerHTML += `
         <div class="card shadow" style="width: 61rem; margin-top: 30px">
           <div class="card-header" style="height: 80px">
@@ -117,15 +118,14 @@ async function getPosts(pageIndex) {
 }
 
 
-function isAuthorized(){
- 
-}
 
+// Display the clicked post in a modal
 function clickedPost(id) {
   // Access the post data and perform actions
   console.log('Clicked post:', id);
   clickedPostId = id;
   const url = baseURL+'/posts/'+ id;
+
 
   // If the user is not logged in, disable the comment textarea and hide the add comment button
   if(unauthorized()){
@@ -137,7 +137,6 @@ function clickedPost(id) {
   btn.style.display = "none"; 
   }
 
-  //
   axios.get(url)
     .then(function (response) {
       // handle success
@@ -155,9 +154,8 @@ function clickedPost(id) {
        
         document.getElementById("editIcon").style.display = "block";
       }
-
-    
-
+     
+      // Display the comments
       const comments = response.data.data.comments;
       document.getElementById("comments").innerHTML = "";
       for (comment of comments) {
@@ -308,7 +306,6 @@ async function createNewPost(){
 
 //add comment
 function addNewComment(){
-
   let commentBody = document.getElementById("commentBody").value;
 
   const url =`${baseURL}/posts/${clickedPostId}/comments`;
@@ -348,6 +345,37 @@ function editPost(){
   document.getElementById("editPostTitle").value = currentPost.title;
   document.getElementById("editPostBody").value = currentPost.body;
   document.getElementById("editPostImg").src = currentPost.image;
+
+
+  
+}
+
+async function updatePost(){
+  let formData = new FormData();
+  formData.append("_method", "put");
+    formData.append("body", document.getElementById("editPostBody").value);
+    formData.append("title", document.getElementById("editPostTitle").value);
+    formData.append("image", document.getElementById("editPostImg").files[0]);
+    
+    const token = localStorage.getItem("token");
+    const headers = {
+      "Content-Type": "multipart/form-data",
+      "authorization": `Bearer ${token}`
+    }
+    console.log(token);
+
+   const  url= `${baseURL}/posts/${clickedPostId}`; 
+   axios.post(url,formData,{ headers: headers })
+    .then(function (response) {
+      // handle success
+      console.log("Updated");
+      console.log(response);
+    })
+  .catch(function (error) {
+    // handle error
+    alert(error.response.data.message)
+  }
+  )
 }
 
 setupUI();
