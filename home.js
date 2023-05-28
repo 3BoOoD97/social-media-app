@@ -351,29 +351,38 @@ function editPost(){
 }
 
 async function updatePost(){
-  let formData = new FormData();
-  formData.append("_method", "put");
-    formData.append("body", document.getElementById("editPostBody").value);
-    formData.append("title", document.getElementById("editPostTitle").value);
-    formData.append("image", document.getElementById("editPostImg").files[0]);
+  
     
     const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "multipart/form-data",
       "authorization": `Bearer ${token}`
     }
-    console.log(token);
 
+    let formData = new FormData();
+  formData.append("_method", "put");
+    formData.append("body", document.getElementById("editPostBody").value);
+    formData.append("title", document.getElementById("editPostTitle").value);
+    formData.append("image", document.getElementById("editPostImg").files[0]);
+    
    const  url= `${baseURL}/posts/${clickedPostId}`; 
    axios.post(url,formData,{ headers: headers })
     .then(function (response) {
       // handle success
       console.log("Updated");
       console.log(response);
+      document.getElementById("successEditAlert").style.display = "block";
+      document.getElementById("successEditAlert").innerHTML = "Post Updated Successfully";
+
+
+      setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 3000);
     })
   .catch(function (error) {
     // handle error
-    alert(error.response.data.message)
+    document.getElementById("failedEditAlert").style.display = "block";
+    document.getElementById("failedEditAlert").innerHTML = error.response.data.message;
   }
   )
 }

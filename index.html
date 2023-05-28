@@ -90,12 +90,21 @@
                         </div>
                       </form>
                     </div>
+                    <div class="alert alert-danger" role="alert" id="failedEditAlert" style="display: none;"></div>
+                     
+                    
+                    <div class="alert alert-success" role="alert" id="successEditAlert" style="display: none;"></div>
+                      
+                    
+
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                       <button type="button" class="btn btn-success" onclick="updatePost()">Edit</button>
                     </div>
-                    
+               
+                  
                   </div>
+                  
                 </div>
               </div>
 
@@ -165,14 +174,15 @@
        
           </ul>
           
-          <div class="card-body" >
+          
+          <div class="card-body" style="border-top: 1px solid black;">
             <div class="card-img-top d-flex align-items-center ">  
             <img id="userProfileImg" src="" alt="" style="height: 50px; border-radius: 20px" 
             /> 
 
             <p class="col p-2 m-0" id="currentUserNamePost"><strong></strong></p>
-       
-   
+          </div>
+              
           </div>
             <p><strong>Write a comment:</strong></p>
            <textarea class="" name="" id="commentBody" style="width: 1000px;height: 150px;"></textarea>
