@@ -4,16 +4,22 @@ let registerBtn= document.getElementById("registerBtn");
 let logoutBtn= document.getElementById("logoutBtn");
 let userIcon = document.getElementById("userIcon");
 let userIconImg = document.getElementById("userIconImg");
-let addIcon = document.getElementById("addIcon");
 let userName = document.getElementById("userName");
+//Create post inputs elements
+let addIcon = document.getElementById("addIcon");
 let postTitleInput = document.getElementById("postTitle");
 let postBodyInput = document.getElementById("createPostBody");
 let postImgInput = document.getElementById("createPostImg");
 let createBtn = document.getElementById("createBtn");
+//Clicked post modal elements
+let clickedPostTitle = document.getElementById("clickedPostTitle");
+let clickedPostImg = document.getElementById("clickedPostImg");
+let clickedPostBody = document.getElementById("clickedPostBody");
 let bottomOfPage= false;
 let pageIndex = 1;
-
+let clickedPostId = 0;
 const baseURL = "https://tarmeezacademy.com/api/v1";
+let currentPost;
 // Sticky Navbar
 function stickynavbar() {
 const navbar = document.getElementById("navbar")
@@ -31,76 +37,156 @@ let top = navbar.offsetTop;
 // Check if the user is at the bottom of the page
 window.onscroll = function bottom(ev) {
   if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-      bottomOfPage = true;
-      pageIndex++;
-      getPosts(pageIndex);
-  }
-  else {
-      bottomOfPage = false;
+    bottomOfPage = true;
+    pageIndex++;
+    getPosts(pageIndex);
+  } else {
+    bottomOfPage = false;
   }
 };
 
 // Get the posts as soon as the page loads
-async function getPosts( pageIndex) {
+async function getPosts(pageIndex) {
   try {
-    const response = await axios.get('https://tarmeezacademy.com/api/v1/posts?limit=2&page='+pageIndex);
+    const response = await axios.get('https://tarmeezacademy.com/api/v1/posts?limit=2&page=' + pageIndex);
     const posts = response.data.data;
-    for (post of posts){
-     console.log(post);
-      postTitle='';
-      //Give the user a default profile image if they don't have one
-      if(!Object.keys(post.author.profile_image).length){
-        post.author.profile_image=  'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
-    }
-    //Give the post a title to display it in the card if it has a value only
-    if (post.title != null){
-      postTitle = post.title;
-    }
+    for (post of posts) {
+      // console.log(post);
+      postTitle = '';
+
+      // Give the user a default profile image if they don't have one
+      if (!Object.keys(post.author.profile_image).length) {
+        post.author.profile_image = 'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
+      }
+
+      // Give the post a title to display it in the card if it has a value only
+      if (post.title != null) {
+        postTitle = post.title;
+      }
+
       postsCard.innerHTML += `
-     <div class="card shadow" style="width: 61rem; margin-top: 30px">
-        <div class="card-header" style="height: 80px">
-          <img
-            src="${post.author.profile_image}"
-            alt=""
-            style="height: 50px; border-radius: 20px"
-          />
-          <a
-            href=""
-            style="
-              color: rgb(5, 5, 5);
-              text-decoration: none;
-              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-              font-weight: bold;
-              font-size: 20px;
-            "
+        <div class="card shadow" style="width: 61rem; margin-top: 30px">
+          <div class="card-header" style="height: 80px">
+            <img
+              src="${post.author.profile_image}"
+              alt=""
+              style="height: 50px; border-radius: 20px"
+            />
+            <a
+              href=""
+              style="
+                color: rgb(5, 5, 5);
+                text-decoration: none;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-weight: bold;
+                font-size: 20px;
+              "
             >@${post.author.name}</a
-          >
+            >
+          </div>
+          <img
+            src="${post.image}"
+            class="card-img-top"
+            height="400px"
+            
+          />
+          <h6 style="color: rgb(182, 164, 164)" class="mt-1">${post.created_at}</h6>
+          <div class="card-body">
+            <h5 class="card-title">${postTitle}</h5>
+            <p class="card-text">
+              ${post.body}
+            </p>
+          </div>
+          <div class="list-group"></div>
+          <div class="card-body">
+            <i class="fa-sharp fa-regular fa-comments" style="color: #0e5abe"></i>
+            <a
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            class="icon-link"
+            href="#"
+            onclick="clickedPost('${post.id}')"
+          >${post.comments_count} Comments</a>
+          </div>
         </div>
-        <img
-          src="${post.image}"
-          class="card-img-top"
-          height="400px"
-        />
-        <h6 style="color: rgb(182, 164, 164)" class="mt-1">${post.created_at}</h6>
-        <div class="card-body">
-          <h5 class="card-title">${postTitle}</h5>
-          <p class="card-text">
-            ${post.body}
-          </p>
-        </div>
-        <div class="list-group"></div>
-        <div class="card-body">
-          <i class="fa-sharp fa-regular fa-comments" style="color: #0e5abe"></i>
-          <a class="icon-link" href="#">${post.comments_count} Comments </a>
-        </div>
-      </div>
-     `
+      `;
     }
-    
   } catch (error) {
     console.error(error);
   }
 }
+
+function clickedPost(id) {
+  // Access the post data and perform actions
+  console.log('Clicked post:', id);
+  clickedPostId = id;
+  const url = baseURL+'/posts/'+ id;
+
+  axios.get(url)
+    .then(function (response) {
+      // handle success
+      console.log(response.data.data.author.profile_image);
+      clickedPostImg.src = response.data.data.image;
+      clickedPostTitle.innerHTML = response.data.data.title;
+      clickedPostBody.innerHTML = response.data.data.body;
+      currentPost = response.data.data;
+      const user= JSON.parse(localStorage.getItem("user"));
+      if(user.id === response.data.data.author.id){
+        console.log("same user");
+      }
+
+    
+
+      const comments = response.data.data.comments;
+      document.getElementById("comments").innerHTML = "";
+      for (comment of comments) {
+        if (!Object.keys(comment.author.profile_image).length) {
+          comment.author.profile_image = 'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
+        }
+        if (comment.author.name==user.name) {
+        document.getElementById("comments"
+        ).innerHTML += `
+        <li class="list-group-item bg-light"> <img src="${comment.author.profile_image}" alt="" style="height: 50px; border-radius: 20px" /> <strong>@${comment.author.name}:</strong>
+        ${comment.body}</li>
+      `;
+      }
+      else{
+        document.getElementById("comments"
+        ).innerHTML += `
+        <li class="list-group-item" > <img src="${comment.author.profile_image}" alt="" style="height: 50px; border-radius: 20px" /> <strong>@${comment.author.name}:</strong>
+        ${comment.body}</li>
+      `;
+    }
+  }
+  if (!Object.keys(response.data.data.author.profile_image).length) {
+    response.data.data.author.profile_image = 'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
+  }
+  document.getElementById("authorImg").src = response.data.data.author.profile_image;
+  document.getElementById("authorName").innerHTML = response.data.data.author.name;
+      document.getElementById("currentUserNamePost").innerHTML = `
+      <h5 class="modal-title" id="staticBackdropLabel" ><strong>@${user.name}</strong></h5>
+      `;
+      if (!Object.keys(user.profile_image).length) {
+        user.profile_image = 'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
+      }
+        document.getElementById("userProfileImg").src = `${user.profile_image}
+      `;
+       // Example: Access the comments count
+})
+}
+
+    
+function defaultProfileImage(img) {
+  if (!Object.keys(img).length) {
+    img = 'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
+  }
+}
+
+
+
+
+
+
 
 // Setup the UI depending on if the user is logged in or not
 function setupUI(){
@@ -192,6 +278,52 @@ async function createNewPost(){
 
 
 
+//add comment
+function addNewComment(){
+
+  let commentBody = document.getElementById("commentBody").value;
+
+  const url =`${baseURL}/posts/${clickedPostId}/comments`;
+  const token = localStorage.getItem("token");
+  const headers = {
+    "Content-Type": "application/json",
+    "authorization": `Bearer ${token}`
+  }
+
+  axios.post(url, {body: commentBody}, { headers: headers })
+  .then(function (response) {
+    // handle success
+    console.log(response);
+    clickedPost(clickedPostId);
+    }
+  )
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  }
+  )
+}
+
+
+function editPost(){
+
+  // Hide show post Modal
+  var myModalEl = document.getElementById("staticBackdrop");
+  var modal = bootstrap.Modal.getInstance(myModalEl)
+  modal.hide();
+
+  // Show edit post Modal
+  var modals = document.getElementById('editPostModal');
+  modals.classList.add('show');
+  modals.style.display = 'block';
+    document.body.classList.add('modal-open');
+  console.log(currentPost);
+  console.log(currentPost.image);
+  document.getElementById("editPostTitle").value = currentPost.title;
+  document.getElementById("editPostBody").value = currentPost.body;
+  document.getElementById("editPostImg").src = currentPost.image;
+
+}
 
 setupUI();
 getPosts();

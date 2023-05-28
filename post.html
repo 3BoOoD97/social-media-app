@@ -65,134 +65,38 @@
                 <a class="nav-link" href="#">Profile</a>
               </li>
 
-
-              <!--Edit Post Modal-->
-              <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            
+          
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Post</h1>
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">New Post</h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                       <form>
                         <div class="mb-3">
                           <label for="recipient-name" class="col-form-label"><strong>Title</strong></label>
-                          <input type="text" class="form-control" id="editPostTitle">
+                          <input type="text" class="form-control" id="postTitle">
                         </div>
                         <div class="mb-3">
                           <label for="recipient-name" class="col-form-label"><strong>Post</strong></label>
-                          <textarea name="" id="editPostBody" style="width: 100%; height: 100px; border-color: gray; border-radius:5pxpx;"></textarea>
+                          <textarea name="" id="createPostBody" style="width: 100%; height: 100px; border-color: gray; border-radius:5pxpx;"></textarea>
                         </div>
                         <div class="mb-3">
                           <label for="formFileMultiple" class="form-label"><strong>Upload a photo</strong></label>
-                          <input class="form-control" type="file" id="editPostImg" multiple />
+                          <input class="form-control" type="file" id="createPostImg" multiple />
                         </div>
                       </form>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-success" onclick="createNewPost()">Save</button>
+                      <button type="button" class="btn btn-success" onclick="createNewPost()">Create</button>
                     </div>
-                    
                   </div>
                 </div>
               </div>
-
-
-
-                <!-- New post Modal -->
-                <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">New Post</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <form>
-                          <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label"><strong>Title</strong></label>
-                            <input type="text" class="form-control" id="postTitle">
-                          </div>
-                          <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label"><strong>Post</strong></label>
-                            <textarea name="" id="createPostBody" style="width: 100%; height: 100px; border-color: gray; border-radius:5pxpx;"></textarea>
-                          </div>
-                          <div class="mb-3">
-                            <label for="formFileMultiple" class="form-label"><strong>Upload a photo</strong></label>
-                            <input class="form-control" type="file" id="createPostImg" multiple />
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" onclick="createNewPost()">Create</button>
-                      </div>
-                      
-                    </div>
-                  </div>
-                </div>
-
-
-<!-- Comments Modal -->
-<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <img src="" 
-        style="height: 50px; border-radius: 20px"
-        id="authorImg">
-        <h5 class="modal-title" id="authorName" style="margin-left: 20px;"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body "
-      >
-        <div class="card " style="width: 67rem; ">
-          <div class="profile-pic" >
-
-          <img src="" class=" img-responsive center-block mx-auto d-block" id="clickedPostImg" 
-          style="height: 500px;width: 800px; margin-bottom: 20px; margin-top: 20px;">
-          <div style="display: block;">
-          <div class="edit"><a href="#"  onclick="editPost()"
-            ><i class="fa fa-pencil fa-lg" ></i></a></div>
-        </div>
-          <div class="card-body">
-            <h5 class="card-title" id="clickedPostTitle"></h5>
-            <p class="card-text" id="clickedPostBody" style="margin-top: 20px; margin-left: 20px;"></p>
-          </div>
-          <ul class="list-group list-group-flush" id="comments">
-       
-          </ul>
-          
-          <div class="card-body" >
-            <div class="card-img-top d-flex align-items-center ">  
-            <img id="userProfileImg" src="" alt="" style="height: 50px; border-radius: 20px" 
-            /> 
-
-            <p class="col p-2 m-0" id="currentUserNamePost"><strong></strong></p>
-       
-   
-          </div>
-            <p><strong>Write a comment:</strong></p>
-           <textarea name="" id="commentBody" style="width: 1000px;height: 150px;"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex flex-row">
-
-        <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" onclick="addNewComment()">Post</button>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
-            
-        
-
-
             </ul>
 
                       <!--NON-Logged in user-->
@@ -260,7 +164,7 @@
 
     <!--Add Post Btn-->
     <span class="addIcon" id="addIcon">
-      <a href="" data-bs-toggle="modal" data-bs-target="#newPostModal">
+      <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
         <i class="fas fa-duotone fa-circle-plus fa-4x"></i>      </a>
     </span>
 
@@ -270,7 +174,7 @@
   role="alert"
   id="successMsg"
   style="z-index: 2;position: fixed ; top: 80%; left: 75%; display: none;"
->Your post has been created successfully 
+>
 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 
