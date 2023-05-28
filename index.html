@@ -153,7 +153,7 @@
 
           <img src="" class=" img-responsive center-block mx-auto d-block" id="clickedPostImg" 
           style="height: 500px;width: 800px; margin-bottom: 20px; margin-top: 20px;">
-          <div style="display: block;">
+          <div id="editIcon">
           <div class="edit"><a href="#"  onclick="editPost()"
             ><i class="fa fa-pencil fa-lg" ></i></a></div>
         </div>
@@ -175,7 +175,7 @@
    
           </div>
             <p><strong>Write a comment:</strong></p>
-           <textarea name="" id="commentBody" style="width: 1000px;height: 150px;"></textarea>
+           <textarea class="" name="" id="commentBody" style="width: 1000px;height: 150px;"></textarea>
           </div>
         </div>
       </div>
@@ -183,7 +183,7 @@
 
         <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" onclick="addNewComment()">Post</button>
+        <button type="button" class="btn btn-success " onclick="addNewComment()" id="addCommentBtn">Comment</button>
       </div>
       </div>
     </div>

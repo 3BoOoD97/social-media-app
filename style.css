@@ -191,3 +191,12 @@ body::-webkit-scrollbar-thumb {
 .edit a {
   color: #000;
 }
+
+/**Disable textarea for NON-Loggedin users**/
+
+/**Disable textarea**/
+.disabledTextarea {
+  pointer-events: none;
+  border: 1px solid #eee;
+  padding: 20px;
+}

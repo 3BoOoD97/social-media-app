@@ -116,12 +116,28 @@ async function getPosts(pageIndex) {
   }
 }
 
+
+function isAuthorized(){
+ 
+}
+
 function clickedPost(id) {
   // Access the post data and perform actions
   console.log('Clicked post:', id);
   clickedPostId = id;
   const url = baseURL+'/posts/'+ id;
 
+  // If the user is not logged in, disable the comment textarea and hide the add comment button
+  if(unauthorized()){
+    console.log("unauthorized");
+   var commentBody=  document.getElementById("commentBody")
+   commentBody.className = "disabledTextarea";
+    commentBody.placeholder = "Please login to add a comment";
+  var btn=  document.getElementById("addCommentBtn");
+  btn.style.display = "none"; 
+  }
+
+  //
   axios.get(url)
     .then(function (response) {
       // handle success
@@ -131,8 +147,13 @@ function clickedPost(id) {
       clickedPostBody.innerHTML = response.data.data.body;
       currentPost = response.data.data;
       const user= JSON.parse(localStorage.getItem("user"));
+
+      // Hide edit icon by default
+      document.getElementById("editIcon").style.display = "none";
+      // Show edit icon if the user is the author of the post
       if(user.id === response.data.data.author.id){
-        console.log("same user");
+       
+        document.getElementById("editIcon").style.display = "block";
       }
 
     
@@ -171,8 +192,15 @@ function clickedPost(id) {
       }
         document.getElementById("userProfileImg").src = `${user.profile_image}
       `;
-       // Example: Access the comments count
-})
+
+    })
+}
+
+function unauthorized(){
+  if (!localStorage.getItem("token")) {
+    return true;
+  }
+  return false;
 }
 
     
@@ -306,12 +334,10 @@ function addNewComment(){
 
 
 function editPost(){
-
   // Hide show post Modal
   var myModalEl = document.getElementById("staticBackdrop");
   var modal = bootstrap.Modal.getInstance(myModalEl)
   modal.hide();
-
   // Show edit post Modal
   var modals = document.getElementById('editPostModal');
   modals.classList.add('show');
@@ -322,7 +348,6 @@ function editPost(){
   document.getElementById("editPostTitle").value = currentPost.title;
   document.getElementById("editPostBody").value = currentPost.body;
   document.getElementById("editPostImg").src = currentPost.image;
-
 }
 
 setupUI();
