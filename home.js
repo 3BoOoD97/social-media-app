@@ -149,10 +149,15 @@ function clickedPost(id) {
 
       // Hide edit icon by default
       document.getElementById("editIcon").style.display = "none";
+      // Hide delete icon by default
+      document.getElementById("deleteIcon").style.display = "none";
+
       // Show edit icon if the user is the author of the post
       if(user.id === response.data.data.author.id){
        
         document.getElementById("editIcon").style.display = "block";
+        document.getElementById("deleteIcon").style.display = "block";
+
       }
      
       // Display the comments
@@ -387,5 +392,45 @@ async function updatePost(){
   )
 }
 
+
+function showModal(modal){
+  var modals = document.getElementById(modal);
+  modals.classList.add('show');
+  modals.style.display = 'block';
+  document.body.classList.add('modal-open');
+}
+
+function hideModal(modal){
+  var modals = document.getElementById(modal);
+  modals.classList.remove('show');
+  modals.style.display = 'none';
+  document.body.classList.remove('modal-open');
+}
+
+function deletePost(){
+  let url = `${baseURL}/posts/${clickedPostId}`;
+
+  const token = localStorage.getItem("token");
+  const headers = {
+    "Content-Type": "application/json",
+    "authorization": `Bearer ${token}`
+  }
+  axios.delete(url, { headers: headers })
+  .then(function (response) {
+    // handle success
+    console.log(response);
+  
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 3000);
+  }
+  )
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+
+  }
+  )
+}
 setupUI();
 getPosts();

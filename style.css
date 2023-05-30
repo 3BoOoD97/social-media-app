@@ -169,7 +169,7 @@ body::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
 }
 
-/**Edit Post **/
+/**Edit Post Icon**/
 .profile-pic {
   position: relative;
   display: inline-block;
@@ -180,8 +180,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .edit {
-  padding-top: 7px;
-  padding-right: 7px;
+  padding-top: 16px;
+  padding-right: 15px;
   position: absolute;
   right: 0;
   top: 0;
@@ -189,6 +189,23 @@ body::-webkit-scrollbar-thumb {
 }
 
 .edit a {
+  color: #000;
+}
+
+/**Delete Post Icon **/
+.profile-pic:hover .delete {
+  display: flex;
+}
+
+.delete {
+  padding-top: 16px;
+  position: absolute;
+  right: 1030px;
+  top: 0;
+  display: none;
+}
+
+.delete a {
   color: #000;
 }
 
