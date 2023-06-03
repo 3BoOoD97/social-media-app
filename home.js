@@ -432,5 +432,10 @@ function deletePost(){
   }
   )
 }
+
 setupUI();
 getPosts();
+
+
+
+
