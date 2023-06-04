@@ -62,7 +62,7 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="profile.html">Profile</a>
+                <a class="nav-link" onclick="userProfileClicked()" style="cursor: pointer;">Profile</a>
               </li>
 
 
@@ -178,10 +178,12 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
+        <span id="clickedUser"style="cursor: pointer;">
         <img src="" 
         style="height: 50px; border-radius: 20px"
-        id="authorImg">
+        id="authorImg"> </span>
         <h5 class="modal-title" id="authorName" style="margin-left: 20px;"></h5>
+        
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body "

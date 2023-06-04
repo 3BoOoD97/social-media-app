@@ -1,3 +1,4 @@
+
 let postsCard = document.getElementById('posts');
 let loginBtn= document.getElementById("loginBtn");
 let registerBtn= document.getElementById("registerBtn");
@@ -67,23 +68,16 @@ async function getPosts(pageIndex) {
       // Display the posts
       postsCard.innerHTML += `
         <div class="card shadow" style="width: 61rem; margin-top: 30px">
-          <div class="card-header" style="height: 80px">
+          <div class="card-header" style="height: 70px">
+          
+          <span onclick="clickedProfile('${post.author.id}')" style="cursor: pointer;">
             <img
               src="${post.author.profile_image}"
               alt=""
               style="height: 50px; border-radius: 20px"
             />
-            <a
-              href=""
-              style="
-                color: rgb(5, 5, 5);
-                text-decoration: none;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                font-weight: bold;
-                font-size: 20px;
-              "
-            >@${post.author.name}</a
-            >
+        <b>  @${post.author.name}</b>
+            </span>
           </div>
           <img
             src="${post.image}"
@@ -117,7 +111,9 @@ async function getPosts(pageIndex) {
   }
 }
 
-
+function clickedProfile(id) {
+  window.location.href = 'profile.html?id=' + id;
+}
 
 // Display the clicked post in a modal
 function clickedPost(id) {
@@ -140,7 +136,7 @@ function clickedPost(id) {
   axios.get(url)
     .then(function (response) {
       // handle success
-      console.log(response.data.data.author.profile_image);
+      console.log(response.data.data);
       clickedPostImg.src = response.data.data.image;
       clickedPostTitle.innerHTML = response.data.data.title;
       clickedPostBody.innerHTML = response.data.data.body;
@@ -160,6 +156,9 @@ function clickedPost(id) {
 
       }
      
+      document.getElementById("clickedUser").addEventListener("click", function(){
+        clickedProfile(response.data.data.author.id);
+      });
       // Display the comments
       const comments = response.data.data.comments;
       document.getElementById("comments").innerHTML = "";
@@ -232,6 +231,7 @@ function setupUI(){
     userIconImg.src=user.profile_image;
     addIcon.style.display="block";
     userName.innerHTML=user.name;
+    
 
     if(!Object.keys(user.profile_image).length){
       user.profile_image=
@@ -431,6 +431,10 @@ function deletePost(){
 
   }
   )
+}
+
+function userProfileClicked(){
+  window.location.href = 'profile.html?id=' + JSON.parse(localStorage.getItem("user")).id;
 }
 
 setupUI();
