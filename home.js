@@ -21,6 +21,9 @@ let pageIndex = 1;
 let clickedPostId = 0;
 const baseURL = "https://tarmeezacademy.com/api/v1";
 let currentPost;
+
+
+
 // Sticky Navbar
 function stickynavbar() {
 const navbar = document.getElementById("navbar")
@@ -35,16 +38,6 @@ let top = navbar.offsetTop;
 
 }
 
-// Check if the user is at the bottom of the page
-window.onscroll = function bottom(ev) {
-  if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-    bottomOfPage = true;
-    pageIndex++;
-    getPosts(pageIndex);
-  } else {
-    bottomOfPage = false;
-  }
-};
 
 // Get the posts as soon as the page loads
 async function getPosts(pageIndex) {
@@ -111,9 +104,7 @@ async function getPosts(pageIndex) {
   }
 }
 
-function clickedProfile(id) {
-  window.location.href = 'profile.html?id=' + id;
-}
+
 
 // Display the clicked post in a modal
 function clickedPost(id) {
@@ -143,22 +134,20 @@ function clickedPost(id) {
       currentPost = response.data.data;
       const user= JSON.parse(localStorage.getItem("user"));
 
+   
+
       // Hide edit icon by default
       document.getElementById("editIcon").style.display = "none";
       // Hide delete icon by default
       document.getElementById("deleteIcon").style.display = "none";
 
-      // Show edit icon if the user is the author of the post
-      if(user.id === response.data.data.author.id){
-       
-        document.getElementById("editIcon").style.display = "block";
-        document.getElementById("deleteIcon").style.display = "block";
-
-      }
-     
+   
+    
+      // Show the author's profile when the user clicks on their name
       document.getElementById("clickedUser").addEventListener("click", function(){
         clickedProfile(response.data.data.author.id);
       });
+
       // Display the comments
       const comments = response.data.data.comments;
       document.getElementById("comments").innerHTML = "";
@@ -166,7 +155,8 @@ function clickedPost(id) {
         if (!Object.keys(comment.author.profile_image).length) {
           comment.author.profile_image = 'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
         }
-        if (comment.author.name==user.name) {
+
+        if (!unauthorized()&& comment.author.name==user.name) {
         document.getElementById("comments"
         ).innerHTML += `
         <li class="list-group-item bg-light"> <img src="${comment.author.profile_image}" alt="" style="height: 50px; border-radius: 20px" /> <strong>@${comment.author.name}:</strong>
@@ -181,6 +171,15 @@ function clickedPost(id) {
       `;
     }
   }
+
+  if (!unauthorized()) {
+          // Show edit icon if the user is the author of the post
+          if(user.id === response.data.data.author.id){
+            document.getElementById("editIcon").style.display = "block";
+            document.getElementById("deleteIcon").style.display = "block";
+          }
+
+
   if (!Object.keys(response.data.data.author.profile_image).length) {
     response.data.data.author.profile_image = 'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
   }
@@ -189,12 +188,12 @@ function clickedPost(id) {
       document.getElementById("currentUserNamePost").innerHTML = `
       <h5 class="modal-title" id="staticBackdropLabel" ><strong>@${user.name}</strong></h5>
       `;
-      if (!Object.keys(user.profile_image).length) {
-        user.profile_image = 'https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png';
-      }
+
+      // Display the user's profile image
+      defaultProfileImage(user.profile_image)
         document.getElementById("userProfileImg").src = `${user.profile_image}
       `;
-
+    }
     })
 }
 
@@ -203,6 +202,10 @@ function unauthorized(){
     return true;
   }
   return false;
+}
+
+function postAuthor(){
+  
 }
 
     
@@ -356,8 +359,7 @@ function editPost(){
 }
 
 async function updatePost(){
-  
-    
+
     const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "multipart/form-data",
@@ -392,7 +394,7 @@ async function updatePost(){
   )
 }
 
-
+// Show the modal
 function showModal(modal){
   var modals = document.getElementById(modal);
   modals.classList.add('show');
@@ -400,6 +402,7 @@ function showModal(modal){
   document.body.classList.add('modal-open');
 }
 
+// Hide the modal
 function hideModal(modal){
   var modals = document.getElementById(modal);
   modals.classList.remove('show');
@@ -407,6 +410,8 @@ function hideModal(modal){
   document.body.classList.remove('modal-open');
 }
 
+
+// Delete a post
 function deletePost(){
   let url = `${baseURL}/posts/${clickedPostId}`;
 
@@ -415,6 +420,7 @@ function deletePost(){
     "Content-Type": "application/json",
     "authorization": `Bearer ${token}`
   }
+  
   axios.delete(url, { headers: headers })
   .then(function (response) {
     // handle success
@@ -433,9 +439,30 @@ function deletePost(){
   )
 }
 
+
+// Redirect the user to the profile page of the clicked user
+function clickedProfile(id) {
+  window.location.href = 'profile.html?id=' + id;
+}
+
+// Redirect the user to their profile page
 function userProfileClicked(){
   window.location.href = 'profile.html?id=' + JSON.parse(localStorage.getItem("user")).id;
 }
+
+
+
+// Check if the user is at the bottom of the page
+window.onscroll = function bottom(ev) {
+  if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+    bottomOfPage = true;
+    pageIndex++;
+    getPosts(pageIndex);
+  } else {
+    bottomOfPage = false;
+  }
+};
+
 
 setupUI();
 getPosts();

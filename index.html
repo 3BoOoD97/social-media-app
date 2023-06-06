@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Home</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -27,7 +27,6 @@
         width: 1000px;
       "
     >
-    
       <!--Navbar-->
       <nav
         class="navbar navbar-expand-lg bg-body-tertiary shadow rounded pt-2"
@@ -62,188 +61,399 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" onclick="userProfileClicked()" style="cursor: pointer;">Profile</a>
+                <a
+                  class="nav-link"
+                  onclick="userProfileClicked()"
+                  style="cursor: pointer"
+                  >Profile</a
+                >
               </li>
 
+              <li class="nav-item">
+                <!--Add Post Btn-->
+                <span class="addIcon" id="addIcon">
+                  <a
+                    href=""
+                    data-bs-toggle="modal"
+                    data-bs-target="#newPostModal"
+                  >
+                    <i class="fas fa-duotone fa-circle-plus fa-3x"></i>
+                  </a>
+                </span>
+              </li>
 
               <!--Edit Post Modal-->
-              <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div
+                class="modal fade"
+                id="editPostModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Post</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="hideModal('editPostModal')"></button>
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        Edit Post
+                      </h1>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        onclick="hideModal('editPostModal')"
+                      ></button>
                     </div>
                     <div class="modal-body">
                       <form>
                         <div class="mb-3">
-                          <label for="recipient-name" class="col-form-label"><strong>Title</strong></label>
-                          <input type="text" class="form-control" id="editPostTitle">
+                          <label for="recipient-name" class="col-form-label"
+                            ><strong>Title</strong></label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="editPostTitle"
+                          />
                         </div>
                         <div class="mb-3">
-                          <label for="recipient-name" class="col-form-label"><strong>Post</strong></label>
-                          <textarea name="" id="editPostBody" style="width: 100%; height: 100px; border-color: gray; border-radius:5pxpx;"></textarea>
+                          <label for="recipient-name" class="col-form-label"
+                            ><strong>Post</strong></label
+                          >
+                          <textarea
+                            name=""
+                            id="editPostBody"
+                            style="
+                              width: 100%;
+                              height: 100px;
+                              border-color: gray;
+                              border-radius: 5pxpx;
+                            "
+                          ></textarea>
                         </div>
                         <div class="mb-3">
-                          <label for="formFileMultiple" class="form-label"><strong>Upload a photo</strong></label>
-                          <input class="form-control" type="file" id="editPostImg" multiple />
+                          <label for="formFileMultiple" class="form-label"
+                            ><strong>Upload a photo</strong></label
+                          >
+                          <input
+                            class="form-control"
+                            type="file"
+                            id="editPostImg"
+                            multiple
+                          />
                         </div>
                       </form>
                     </div>
-                    <div class="alert alert-danger" role="alert" id="failedEditAlert" style="display: none;"></div>
-                     
-                    
-                    <div class="alert alert-success" role="alert" id="successEditAlert" style="display: none;"></div>
-                      
-                    
+                    <div
+                      class="alert alert-danger"
+                      role="alert"
+                      id="failedEditAlert"
+                      style="display: none"
+                    ></div>
+
+                    <div
+                      class="alert alert-success"
+                      role="alert"
+                      id="successEditAlert"
+                      style="display: none"
+                    ></div>
 
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="hideModal('editPostModal')">Close</button>
-                      <button type="button" class="btn btn-success" onclick="updatePost()">Edit</button>
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        data-bs-dismiss="modal"
+                        onclick="hideModal('editPostModal')"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-success"
+                        onclick="updatePost()"
+                      >
+                        Edit
+                      </button>
                     </div>
-               
-                  
                   </div>
-                  
                 </div>
               </div>
 
-
-
-                <!-- New post Modal -->
-                <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">New Post</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <form>
-                          <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label"><strong>Title</strong></label>
-                            <input type="text" class="form-control" id="postTitle">
-                          </div>
-                          <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label"><strong>Post</strong></label>
-                            <textarea name="" id="createPostBody" style="width: 100%; height: 100px; border-color: gray; border-radius:5pxpx;"></textarea>
-                          </div>
-                          <div class="mb-3">
-                            <label for="formFileMultiple" class="form-label"><strong>Upload a photo</strong></label>
-                            <input class="form-control" type="file" id="createPostImg" multiple />
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" onclick="createNewPost()">Create</button>
-                      </div>
-                      
+              <!-- New post Modal -->
+              <div
+                class="modal fade"
+                id="newPostModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        New Post
+                      </h1>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="mb-3">
+                          <label for="recipient-name" class="col-form-label"
+                            ><strong>Title</strong></label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="postTitle"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="recipient-name" class="col-form-label"
+                            ><strong>Post</strong></label
+                          >
+                          <textarea
+                            name=""
+                            id="createPostBody"
+                            style="
+                              width: 100%;
+                              height: 100px;
+                              border-color: gray;
+                              border-radius: 5pxpx;
+                            "
+                          ></textarea>
+                        </div>
+                        <div class="mb-3">
+                          <label for="formFileMultiple" class="form-label"
+                            ><strong>Upload a photo</strong></label
+                          >
+                          <input
+                            class="form-control"
+                            type="file"
+                            id="createPostImg"
+                            multiple
+                          />
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-success"
+                        onclick="createNewPost()"
+                      >
+                        Create
+                      </button>
                     </div>
                   </div>
                 </div>
+              </div>
 
+              <!--Delete confirmation Modal-->
+              <div
+                class="modal"
+                tabindex="1"
+                role="dialog"
+                id="deleteConfirmation"
+                style="z-index: 1600"
+              >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Modal title</h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        onclick="hideModal('deleteConfirmation')"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Do you want to delete this post?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <div
+                        class="alert alert-danger"
+                        role="alert"
+                        id="failedEditAlert"
+                        style="display: none"
+                      >
+                        ss
+                      </div>
 
+                      <div
+                        class="alert alert-success"
+                        role="alert"
+                        id="successEditAlert"
+                        style="display: none"
+                      >
+                        ss
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        onclick="deletePost()"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                        onclick="hideModal('deleteConfirmation')"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
+              <!-- Comments Modal -->
+              <div
+                class="modal fade"
+                id="staticBackdrop"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-xl">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <span id="clickedUser" style="cursor: pointer">
+                        <img
+                          src=""
+                          style="height: 50px; border-radius: 20px"
+                          id="authorImg"
+                        />
+                      </span>
+                      <h5
+                        class="modal-title"
+                        id="authorName"
+                        style="margin-left: 20px"
+                      ></h5>
 
-                <!--Delete confirmation Modal-->
-                <div class="modal"  tabindex="1" role="dialog" id="deleteConfirmation" style="z-index: 1600;">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="hideModal('deleteConfirmation')">
-                          <span aria-hidden="true">&times;</span>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="card" style="width: 67rem">
+                        <div class="profile-pic">
+                          <img
+                            src=""
+                            class="img-responsive center-block mx-auto d-block"
+                            id="clickedPostImg"
+                            style="
+                              height: 500px;
+                              width: 800px;
+                              margin-bottom: 20px;
+                              margin-top: 20px;
+                            "
+                          />
+
+                          <div id="editIcon">
+                            <div class="edit">
+                              <a href="#" onclick="editPost()"
+                                ><i class="fa fa-pencil fa-lg"></i
+                              ></a>
+                            </div>
+                          </div>
+
+                          <div id="deleteIcon">
+                            <div class="delete">
+                              <a
+                                href="#"
+                                onclick="showModal('deleteConfirmation')"
+                                ><i class="fa fa-trash fa-lg"></i
+                              ></a>
+                            </div>
+                          </div>
+
+                          <div class="card-body">
+                            <h5 class="card-title" id="clickedPostTitle"></h5>
+                            <p
+                              class="card-text"
+                              id="clickedPostBody"
+                              style="margin-top: 20px; margin-left: 20px"
+                            ></p>
+                          </div>
+                          <ul
+                            class="list-group list-group-flush"
+                            id="comments"
+                          ></ul>
+
+                          <div
+                            class="card-body"
+                            style="border-top: 1px solid black"
+                          >
+                            <div class="card-img-top d-flex align-items-center">
+                              <img
+                                id="userProfileImg"
+                                src=""
+                                alt=""
+                                style="height: 50px; border-radius: 20px"
+                              />
+
+                              <p class="col p-2 m-0" id="currentUserNamePost">
+                                <strong></strong>
+                              </p>
+                            </div>
+                          </div>
+                          <p><strong>Write a comment:</strong></p>
+                          <textarea
+                            class=""
+                            name=""
+                            id="commentBody"
+                            style="width: 1000px; height: 150px"
+                          ></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-danger"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-success"
+                          onclick="addNewComment()"
+                          id="addCommentBtn"
+                        >
+                          Comment
                         </button>
                       </div>
-                      <div class="modal-body">
-                        <p>Do you want to delete this post?</p>
-                      </div>
-                      <div class="modal-footer">
-                        <div class="alert alert-danger" role="alert" id="failedEditAlert" style="display: none;">ss</div>
-                     
-                    
-                        <div class="alert alert-success" role="alert" id="successEditAlert" style="display: none;">ss</div>
-                        <button type="button" class="btn btn-danger" onclick="deletePost()">Delete</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="hideModal('deleteConfirmation')">Close</button>
-                      </div>
                     </div>
                   </div>
                 </div>
-
-
-<!-- Comments Modal -->
-<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span id="clickedUser"style="cursor: pointer;">
-        <img src="" 
-        style="height: 50px; border-radius: 20px"
-        id="authorImg"> </span>
-        <h5 class="modal-title" id="authorName" style="margin-left: 20px;"></h5>
-        
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body "
-      >
-        <div class="card " style="width: 67rem; ">
-          <div class="profile-pic" >
-
-          <img src="" class=" img-responsive center-block mx-auto d-block" id="clickedPostImg" 
-          style="height: 500px;width: 800px; margin-bottom: 20px; margin-top: 20px;">
-          
-          <div id="editIcon">
-          <div class="edit"><a href="#"  onclick="editPost()"
-            ><i class="fa fa-pencil fa-lg" ></i></a></div>
-        </div>
-
-        <div id="deleteIcon">
-          <div class="delete"><a href="#"  onclick="showModal('deleteConfirmation')"
-            ><i class="fa fa-trash fa-lg" ></i></a></div>
-        </div>
-
-          <div class="card-body">
-            <h5 class="card-title" id="clickedPostTitle"></h5>
-            <p class="card-text" id="clickedPostBody" style="margin-top: 20px; margin-left: 20px;"></p>
-          </div>
-          <ul class="list-group list-group-flush" id="comments">
-       
-          </ul>
-          
-          
-          <div class="card-body" style="border-top: 1px solid black;">
-            <div class="card-img-top d-flex align-items-center ">  
-            <img id="userProfileImg" src="" alt="" style="height: 50px; border-radius: 20px" 
-            /> 
-
-            <p class="col p-2 m-0" id="currentUserNamePost"><strong></strong></p>
-          </div>
-              
-          </div>
-            <p><strong>Write a comment:</strong></p>
-           <textarea class="" name="" id="commentBody" style="width: 1000px;height: 150px;"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex flex-row">
-
-        <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success " onclick="addNewComment()" id="addCommentBtn">Comment</button>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
-            
-        
-
-
+              </div>
             </ul>
 
-                      <!--NON-Logged in user-->
+            <!--NON-Logged in user-->
             <div class="d-flex w-100 justify-content-end">
               <a href="login.html">
                 <button
@@ -257,7 +467,7 @@
               <a href="signup.html">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  class="btn btn-secondary mx-2"
                   id="registerBtn"
                 >
                   Register
@@ -265,26 +475,24 @@
               </a>
             </div>
           </div>
+        </div>
 
+        <!--Logged in user Name -->
+        <div class="userName" id="userName"></div>
 
-          <!--Logged in user Name -->
-          <div class="userName" id="userName"></div>
-
-
-
-          <!--Logged in user Icon -->
-        <div class="d-flex"  >
+        <!--Logged in user Icon -->
+        <div class="d-flex">
           <a href="profile.html" id="userIcon">
             <img
               src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
               alt=""
-              style="height: 40px; width: 50px;"
+              style="height: 40px; width: 50px"
               id="userIconImg"
             />
           </a>
 
-            <!--Logged in user-->
-            <a href="login.html">
+          <!--Logged in user-->
+          <a href="login.html">
             <button
               type="button"
               class="btn btn-danger mx-2"
@@ -298,48 +506,41 @@
       </nav>
 
       <!--Post-->
-      <div id="posts" style="position: relative; z-index: 2; margin-bottom: 100px;"></div>
+      <div
+        id="posts"
+        style="position: relative; z-index: 2; margin-bottom: 100px"
+      ></div>
     </div>
 
-
-
-
-
-
-    <!--Add Post Btn-->
-    <span class="addIcon" id="addIcon">
-      <a href="" data-bs-toggle="modal" data-bs-target="#newPostModal">
-        <i class="fas fa-duotone fa-circle-plus fa-4x"></i>      </a>
-    </span>
-
-      <!--Success Msg -->
+    <!--Success Msg -->
     <div
-  class="alert alert-success "
-  role="alert"
-  id="successMsg"
-  style="z-index: 2;position: fixed ; top: 80%; left: 75%; display: none;"
->Your post has been created successfully 
-<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
+      class="alert alert-success"
+      role="alert"
+      id="successMsg"
+      style="z-index: 2; position: fixed; top: 80%; left: 75%; display: none"
+    >
+      Your post has been created successfully
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
 
-<!--Error Msg -->
-<div
-  class="alert alert-danger"
-  role="alert"
-  id="errorMsg"
-  style="z-index: 2;position: fixed ; top: 80%; left: 75%; display: none;"
-></div>
+    <!--Error Msg -->
+    <div
+      class="alert alert-danger"
+      role="alert"
+      id="errorMsg"
+      style="z-index: 2; position: fixed; top: 80%; left: 75%; display: none"
+    ></div>
 
     <!--Background-->
     <canvas id="c"></canvas>
 
-
-
-
-
-
     <!--Add Post Modal-->
-    
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
@@ -347,6 +548,5 @@
     ></script>
     <script src="home.js"></script>
     <script src="background.js"></script>
-    
   </body>
 </html>
